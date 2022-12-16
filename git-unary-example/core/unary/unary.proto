@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option go_package = "grpc/grpc-examples/core/unary";
+
+package unary;
+
+// Room 서비스를 생성
+service Room {
+  // Entry RPC 를 생성하고 Guest 정보를 받아 Message 로 응답을 한다
+  rpc Entry (Guest) returns (Message);
+  // EntryList RPC 를 생성하고 Entry 로 진입한 Guest 목록을 Guests 로 응답한다.
+  rpc EntryList (Void) returns (Guests);
+}
+
+message Void {}
+message Message {
+  string message = 1;
+}
+message Guest {
+  string name = 1;
+  string age = 2;
+}
+
+message Guests {
+  // Map (Key-Value) 형태로 데이터를 정의
+  map<string, Guest> guest = 1;
+  // Array 형태로 데이터를 정의
+  // repeated Guest guest = 1;
+}
